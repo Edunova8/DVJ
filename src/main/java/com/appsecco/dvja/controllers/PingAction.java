@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import org.apache.commons.text.StringEscapeUtils;
 import java.io.InputStreamReader;
 
 public class PingAction extends BaseController {
@@ -42,7 +43,7 @@ public class PingAction extends BaseController {
 
     private void doExecCommand() throws IOException {
         Runtime runtime = Runtime.getRuntime();
-        String[] command = { "/bin/bash", "-c", "ping -t 5 -c 5 " + getAddress() };
+        String[] command = { "/bin/bash", "-c", "ping -t 5 -c 5 " + StringEscapeUtils.escapeXSI(getAddress()) };
         Process process = runtime.exec(command);
 
         BufferedReader  stdinputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
